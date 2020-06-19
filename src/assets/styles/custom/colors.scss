@@ -1,0 +1,32 @@
+.text-primary {
+    color: red;
+}
+
+.text-secondary {
+    color: grey;
+}
+
+.text-dark {
+    color: #555;
+}
+
+.text-light {
+    color: rgba($color: #e5e5e5, $alpha: 0.6);
+}
+
+.text-white {
+    color: white;
+}
+
+.bg-primary {
+    background-color: red;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.bg-light {
+    background-color: rgba($color: #e5e5e5, $alpha: 0.6);
+    
+}

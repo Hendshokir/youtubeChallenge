@@ -1,5 +1,18 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <mainHeader />
   </div>
 </template>
+
+
+<script>
+// @ is an alias to /src
+import mainHeader from '@/components/Header.vue'
+
+export default {
+  name: 'About',
+  components: {
+    mainHeader
+  }
+}
+</script>

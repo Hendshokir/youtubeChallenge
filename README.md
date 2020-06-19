@@ -1,4 +1,4 @@
-# youtube-challenge
+# Youtube Challenge
 
 ## Project setup
 ```
