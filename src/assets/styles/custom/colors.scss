@@ -1,32 +1,33 @@
+@import './variables.scss';
+
 .text-primary {
-    color: red;
+    color: $primary;
 }
 
 .text-secondary {
-    color: grey;
+    color: $grey;
 }
 
 .text-dark {
-    color: #555;
+    color: $dark;
 }
 
 .text-light {
-    color: rgba($color: #e5e5e5, $alpha: 0.6);
+    color: $light;
 }
 
 .text-white {
-    color: white;
+    color: $white;
 }
 
 .bg-primary {
-    background-color: red;
+    background-color: $primary;
 }
 
 .bg-white {
-    background-color: white;
+    background-color: $white;
 }
 
 .bg-light {
-    background-color: rgba($color: #e5e5e5, $alpha: 0.6);
-    
+    background-color: $light;   
 }
