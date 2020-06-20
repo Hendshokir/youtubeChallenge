@@ -47,7 +47,7 @@
 
 <script>
 export default {
-  name: 'mainHeader',
+  name: 'main-header',
   data() {
     return {
       isEnabledSearch: true,
