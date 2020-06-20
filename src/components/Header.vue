@@ -13,10 +13,10 @@
             class="fas fa-times clear-search cursor-pointer text-secondary p-absolute px-2 size-10"></i>
           </span>
         </div>
-        <span v-else class="mx-2">Search Text</span>
+        <span @click="toggleSearch" v-else class="mx-2 text-white">Search Text</span>
         <!-- TODO: youtube text in video details page-->
       </div> <!-- End Logo, Search Form/text-->
-      <span @click="toggleSearch"><i class="fas fa-search text-white cursor-pointer"></i></span>
+      <i class="fas fa-search text-white cursor-pointer"></i>
     </div><!-- End Mobile Header-->
 
     <div class="desktop-header bg-white p-fixed">
