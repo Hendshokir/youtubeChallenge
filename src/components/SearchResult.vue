@@ -1,7 +1,7 @@
 <template>
   <section class="search-result">
     <div v-if="getSearchLoading" class="d-flex flex-column align-items-center py-5">
-      <!-- <span class="fas fa-spinner mb-3"></span> -->
+      <img class="mb-3 loading" src="../assets/images/loading.gif">
       <span>Loading</span>
     </div><!-- End Search Loading-->
     <div v-if="!getSearchLoading && getSearchResult !== ''" class="container p-1">
@@ -16,8 +16,8 @@
       </div>
     </div><!-- End Search Result-->
 
-    <!-- TODO to fix this bug -->
-    <div v-if="!getSearchRequestStatus && getSearchResult === ''" class="no-result d-flex flex-column align-items-center py-5">
+    <div v-if="!getSearchRequestStatus" class="no-result d-flex flex-column align-items-center py-5">
+      <img class="mb-3 loading" src="../assets/images/not-found.svg">
       <span class="size-20"> No results found </span>
     </div><!--End No Result-->
   </section>
@@ -47,6 +47,10 @@ export default {
 .search-result {
    @media(max-width: 776px) {
     background-color: $white;
+  }
+
+  .loading {
+    width: 30px;
   }
 }
 </style>

@@ -81,7 +81,9 @@ export default {
         console.log(response.data.items)
         this.$store.commit('updateSearchLoading',false)
         this.$store.commit('updateSearchResult',response.data.items)
-        this.$store.commit('updateSearchRequstStats',true)
+        this.getSearchResult === [] ? 
+          this.$store.commit('updateSearchRequstStats',false) :
+          this.$store.commit('updateSearchRequstStats',true)
         this.isEnabledSearch = false
       })
       .catch(() => {
@@ -92,7 +94,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getSearchKey','getSearchLoading'])
+    ...mapGetters(['getSearchKey','getSearchLoading','getSearchResult'])
   },
 }
 </script>
@@ -116,6 +118,7 @@ export default {
   .desktop-header {
     right: 0;
     left: 0;
+    z-index: 99;
 
     .logo {
       width: 80px;
