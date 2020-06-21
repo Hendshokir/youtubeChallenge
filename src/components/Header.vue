@@ -1,25 +1,28 @@
 <template>
   <header class="header">
-    <div class="mobile-header d-flex bg-primary justify-content-between align-items-center p-2">
+    <div class="mobile-header mobile d-flex bg-primary justify-content-between align-items-center p-2">
       <div class="d-flex align-items-center">
         <i class="fab fa-youtube text-white size-36"></i>
         <div class="form-container p-relative mx-2" v-if="isEnabledSearch">
           <input 
             class="form-input text-dark"
             type="text"
-            v-model="searchText" />
-          <span @click="clearSearch" v-if="searchText !== ''">
+            @change="updateSearchKey"
+            v-model="searchKey" />
+          <span @click="clearSearch" v-if="searchKey !== ''">
             <i
             class="fas fa-times clear-search cursor-pointer text-secondary p-absolute px-2 size-10"></i>
           </span>
         </div>
-        <span @click="toggleSearch" v-else class="mx-2 text-white">Search Text</span>
+        <span @click="toggleSearch" v-else class="mx-2 text-white">{{getSearchKey}}</span>
         <!-- TODO: youtube text in video details page-->
       </div> <!-- End Logo, Search Form/text-->
-      <i class="fas fa-search text-white cursor-pointer"></i>
+      <span @click="updateSearch">
+        <i class="fas fa-search text-white cursor-pointer"></i>
+      </span>
     </div><!-- End Mobile Header-->
 
-    <div class="desktop-header bg-white p-fixed">
+    <div class="desktop-header desktop bg-white p-fixed">
       <div class="container d-flex p-2">
         <div class="row justify-content-between align-items-center">
           <div class="d-flex col-sm-2">
@@ -31,8 +34,9 @@
               <input 
                 class="form-input text-dark"
                 type="text"
-                v-model="searchText" />
-              <span>
+                @change="updateSearchKey"
+                v-model="searchKey" />
+              <span @click="updateSearch">
                 <i
                 class="fas fa-search search-icon cursor-pointer text-secondary bg-light h-93 p-absolute px-4 size-10"></i>
               </span>
@@ -46,22 +50,50 @@
 
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name: 'main-header',
   data() {
     return {
       isEnabledSearch: true,
-      searchText: 'test'
+      searchKey: this.$store.state.searchKey
     }
   },
   methods: {
     clearSearch: function() {
-     this.searchText = ''
+      this.searchKey = ''
+      this.$store.commit('updateSearchKey',this.searchKey)
     },
     toggleSearch() {
       this.isEnabledSearch = !this.isEnabledSearch;
+    },
+    updateSearchKey(){
+      this.$store.commit('updateSearchKey',this.searchKey)
+    },
+    updateSearch(){
+      if (this.$route.path !== '/')
+        this.$router.push('/')
+      this.$store.commit('updateSearchLoading',true)
+
+      const url = `${this.$BASE_URL}search?part=snippet&q=${this.getSearchKey}&key=${this.$API_KEY}&maxResults=${this.$ITEM_PER_PAGE}`;
+      this.axios.get(url)
+      .then(response => {
+        console.log(response.data.items)
+        this.$store.commit('updateSearchLoading',false)
+        this.$store.commit('updateSearchResult',response.data.items)
+        this.$store.commit('updateSearchRequstStats',true)
+        this.isEnabledSearch = false
+      })
+      .catch(() => {
+        this.$store.commit('updateSearchLoading',false)
+        this.$store.commit('updateSearchResult','')
+        this.$store.commit('updateSearchRequstStats',false)
+      })
     }
-  }
+  },
+  computed: {
+    ...mapGetters(['getSearchKey','getSearchLoading'])
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -81,11 +113,6 @@ export default {
     z-index: 3;
   }
 
-  .mobile-header{
-    @media(min-width: 776px) {
-      display: none;
-    }
-  }
   .desktop-header {
     right: 0;
     left: 0;
@@ -97,10 +124,6 @@ export default {
 
     .search-icon {
       border-radius: 0 3px 3px 0;
-    }
-
-    @media(max-width: 776px) {
-      display: none;
     }
   }
 }

@@ -17,7 +17,6 @@ body {
   @media(min-width: 776px) {
     margin: 0;
   }
-  height: 1000px; // TODO: remove this line
   background-color: rgba($color: #e5e5e5, $alpha: 0.6);
 }
 </style>

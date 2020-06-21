@@ -1,3 +1,15 @@
 .d-flex {
-    display: flex;
+  display: flex;
+}
+
+.desktop {
+  @media(max-width: 776px) {
+    display: none;
+  }
+}
+
+.mobile {
+  @media(min-width: 776px) {
+    display: none;
+  }
 }
