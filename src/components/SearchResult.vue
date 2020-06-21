@@ -4,7 +4,7 @@
       <!-- <span class="fas fa-spinner mb-3"></span> -->
       <span>Loading</span>
     </div><!-- End Search Loading-->
-    <div v-if="!getSearchLoading && getSearchResult !== ''" class="container">
+    <div v-if="!getSearchLoading && getSearchResult !== ''" class="container p-1">
       <div v-for="item in getSearchResult" :key="item.etag">
         <div v-if="item.id.kind === 'youtube#channel'">
           <channel-card :channelItem="item" class="my-3"/>
