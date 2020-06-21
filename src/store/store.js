@@ -8,7 +8,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    searchKey: 'spongebob',
+    searchKey: '',
     searchLoading: false,
     searchResult: '',
     searchRequestStatus: true, // true: indicate for success status, otherwise false

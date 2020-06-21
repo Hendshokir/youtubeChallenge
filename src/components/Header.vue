@@ -17,7 +17,7 @@
         <span @click="toggleSearch" v-else class="mx-2 text-white">{{getSearchKey}}</span>
         <!-- TODO: youtube text in video details page-->
       </div> <!-- End Logo, Search Form/text-->
-      <span @click="updateSearch">
+      <span @click="updateSearch(getSearchKey)">
         <i class="fas fa-search text-white cursor-pointer"></i>
       </span>
     </div><!-- End Mobile Header-->
@@ -36,7 +36,7 @@
                 type="text"
                 @change="updateSearchKey"
                 v-model="searchKey" />
-              <span @click="updateSearch">
+              <span @click="updateSearch(getSearchKey)">
                 <i
                 class="fas fa-search search-icon cursor-pointer text-secondary bg-light h-93 p-absolute px-4 size-10"></i>
               </span>
@@ -71,32 +71,34 @@ export default {
     updateSearchKey(){
       this.$store.commit('updateSearchKey',this.searchKey)
     },
-    updateSearch(){
+    updateSearch(searchKey){
       if (this.$route.path !== '/')
         this.$router.push('/')
       this.$store.commit('updateSearchLoading',true)
 
       let url = '';
       if (this.getSearchFilter.type !== undefined) {
-        url = `${this.$BASE_URL}search?part=snippet&q=${this.getSearchKey}&key=${this.$API_KEY}&type=${this.getSearchFilter.type}&maxResults=${this.$ITEM_PER_PAGE}`;
+        url = `${this.$BASE_URL}search?part=snippet&q=${searchKey}&key=${this.$API_KEY}&type=${this.getSearchFilter.type}&maxResults=${this.$ITEM_PER_PAGE}`;
       } else if (this.getSearchFilter.publishedAfter !== undefined) {
-        url = `${this.$BASE_URL}search?part=snippet&q=${this.getSearchKey}&key=${this.$API_KEY}&publishedAfter=${this.getSearchFilter.publishedAfter}&maxResults=${this.$ITEM_PER_PAGE}`;
+        url = `${this.$BASE_URL}search?part=snippet&q=${searchKey}&key=${this.$API_KEY}&publishedAfter=${this.getSearchFilter.publishedAfter}&maxResults=${this.$ITEM_PER_PAGE}`;
       } else {
-        url = `${this.$BASE_URL}search?part=snippet&q=${this.getSearchKey}&key=${this.$API_KEY}&maxResults=${this.$ITEM_PER_PAGE}`
+        url = `${this.$BASE_URL}search?part=snippet&q=${searchKey}&key=${this.$API_KEY}&maxResults=${this.$ITEM_PER_PAGE}`
       }
       this.axios.get(url)
       .then(response => {
         this.$store.commit('updateSearchLoading',false)
         this.$store.commit('updateSearchResult',response.data.items)
         this.getSearchResult === [] ? 
-          this.$store.commit('updateSearchRequstStats',false) :
-          this.$store.commit('updateSearchRequstStats',true)
+        this.$store.commit('updateSearchRequstStats',false) :
+        this.$store.commit('updateSearchRequstStats',true) 
+        this.$store.commit('updateSearchFilter',{}) // reset filter 
         this.isEnabledSearch = false
       })
       .catch(() => {
         this.$store.commit('updateSearchLoading',false)
         this.$store.commit('updateSearchResult','')
         this.$store.commit('updateSearchRequstStats',false)
+        this.$store.commit('updateSearchFilter',{}) // reset filter 
       })
     }
   },
@@ -104,7 +106,7 @@ export default {
     ...mapGetters(['getSearchKey','getSearchLoading','getSearchResult','getSearchFilter'])
   },
   mounted() {
-    if(this.getSearchKey !== '') this.updateSearch() // initially fire search with initially search key 'spongebob'
+    this.updateSearch('') // initially fire search with initially search key 'spongebob'
   }
 }
 </script>
