@@ -10,5 +10,8 @@ export default {
   },
   getSearchRequestStatus(state) {
     return state.searchRequestStatus
+  },
+  getSearchFilter(state) {
+    return state.searchFilter
   }
 };

@@ -11,7 +11,8 @@ export default new Vuex.Store({
     searchKey: 'spongebob',
     searchLoading: false,
     searchResult: '',
-    searchRequestStatus: true // true: indicate for success status, otherwise false
+    searchRequestStatus: true, // true: indicate for success status, otherwise false
+    searchFilter: {}
   },
   getters: getters,
   mutations: mutations,

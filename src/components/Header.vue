@@ -5,7 +5,7 @@
         <i class="fab fa-youtube text-white size-36"></i>
         <div class="form-container p-relative mx-2" v-if="isEnabledSearch">
           <input 
-            class="form-input text-dark"
+            class="form-control text-dark"
             type="text"
             @change="updateSearchKey"
             v-model="searchKey" />
@@ -32,7 +32,7 @@
           <div class="d-flex col-sm-8 align-items-center px-0">
             <div class="form-container p-relative w-100 px-0">
               <input 
-                class="form-input text-dark"
+                class="form-control text-dark w-100"
                 type="text"
                 @change="updateSearchKey"
                 v-model="searchKey" />
@@ -63,6 +63,7 @@ export default {
     clearSearch: function() {
       this.searchKey = ''
       this.$store.commit('updateSearchKey',this.searchKey)
+      this.$store.commit('updateSearchResult','')
     },
     toggleSearch() {
       this.isEnabledSearch = !this.isEnabledSearch;
@@ -75,7 +76,14 @@ export default {
         this.$router.push('/')
       this.$store.commit('updateSearchLoading',true)
 
-      const url = `${this.$BASE_URL}search?part=snippet&q=${this.getSearchKey}&key=${this.$API_KEY}&maxResults=${this.$ITEM_PER_PAGE}`;
+      let url = '';
+      if (this.getSearchFilter.type !== undefined) {
+        url = `${this.$BASE_URL}search?part=snippet&q=${this.getSearchKey}&key=${this.$API_KEY}&type=${this.getSearchFilter.type}&maxResults=${this.$ITEM_PER_PAGE}`;
+      } else if (this.getSearchFilter.publishedAfter !== undefined) {
+        url = `${this.$BASE_URL}search?part=snippet&q=${this.getSearchKey}&key=${this.$API_KEY}&publishedAfter=${this.getSearchFilter.publishedAfter}&maxResults=${this.$ITEM_PER_PAGE}`;
+      } else {
+        url = `${this.$BASE_URL}search?part=snippet&q=${this.getSearchKey}&key=${this.$API_KEY}&maxResults=${this.$ITEM_PER_PAGE}`
+      }
       this.axios.get(url)
       .then(response => {
         this.$store.commit('updateSearchLoading',false)
@@ -93,8 +101,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getSearchKey','getSearchLoading','getSearchResult'])
+    ...mapGetters(['getSearchKey','getSearchLoading','getSearchResult','getSearchFilter'])
   },
+  mounted() {
+    if(this.getSearchKey !== '') this.updateSearch() // initially fire search with initially search key 'spongebob'
+  }
 }
 </script>
 <style lang="scss" scoped>

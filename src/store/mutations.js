@@ -10,6 +10,9 @@ export default {
   },
   updateSearchRequstStats(state, newSearchStatus) {
     state.searchRequestStatus = newSearchStatus
+  },
+  updateSearchFilter(state, newSearchFilter) {
+    state.searchFilter = newSearchFilter
   }
 };
   

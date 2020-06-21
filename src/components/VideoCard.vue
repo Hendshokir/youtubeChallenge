@@ -49,7 +49,6 @@ export default {
       let result = ''
       const currentDate = new Date()
       publishDate = new Date(publishDate)
-
       const diffYear = currentDate.getYear() - publishDate.getYear()
       const diffMonth = Math.abs(currentDate.getMonth() - publishDate.getMonth())
       const diffDay = Math.abs(currentDate.getDay() - publishDate.getDay())

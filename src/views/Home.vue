@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <main-header />
-    <search-result class="mt-4"/>
+    <search-result />
   </div>
 </template>
 

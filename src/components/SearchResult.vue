@@ -4,6 +4,9 @@
       <img class="mb-3 loading" src="../assets/images/loading.gif">
       <span>Loading</span>
     </div><!-- End Search Loading-->
+
+    <filter-section v-if="!getSearchLoading && getSearchKey !== ''" />
+    <!--End Filte -->
     <div v-if="!getSearchLoading && getSearchResult !== ''" class="container p-1">
       <div v-for="item in getSearchResult" :key="item.etag">
         <div v-if="item.id.kind === 'youtube#channel'">
@@ -29,6 +32,7 @@
 
 <script>
 import {mapGetters} from 'vuex'
+import FilterSection from './FilterSection.vue'
 import ChannelCard from './ChannelCard.vue'
 import VideoCard from './VideoCard.vue'
 import PlaylistCard from './PlaylistCard.vue'
@@ -36,6 +40,7 @@ import PlaylistCard from './PlaylistCard.vue'
 export default {
   name: 'search-result',
   components: {
+    FilterSection,
     ChannelCard,
     VideoCard,
     PlaylistCard
