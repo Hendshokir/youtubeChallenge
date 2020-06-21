@@ -74,7 +74,6 @@ export default {
     const url = `${this.$BASE_URL}videos?part=statistics,contentDetails&key=${this.$API_KEY}&id=${this.videoItem.id.videoId}`;
     this.axios.get(url)
     .then(response => {
-      console.log(response.data);
       this.viewCount = response?.data?.items[0]?.statistics?.viewCount
       this.duration = response?.data?.items[0]?.contentDetails.duration
     })

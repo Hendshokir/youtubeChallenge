@@ -78,7 +78,6 @@ export default {
       const url = `${this.$BASE_URL}search?part=snippet&q=${this.getSearchKey}&key=${this.$API_KEY}&maxResults=${this.$ITEM_PER_PAGE}`;
       this.axios.get(url)
       .then(response => {
-        console.log(response.data.items)
         this.$store.commit('updateSearchLoading',false)
         this.$store.commit('updateSearchResult',response.data.items)
         this.getSearchResult === [] ? 

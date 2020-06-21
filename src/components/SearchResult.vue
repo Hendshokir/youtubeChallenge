@@ -13,6 +13,9 @@
         <div v-else-if="item.id.kind === 'youtube#video'">
           <video-card :videoItem="item" class="my-3"/>
         </div>
+        <div v-else-if="item.id.kind === 'youtube#playlist'">
+          <playlist-card :playlistItem="item" class="my-3"/>
+        </div>
       </div>
     </div><!-- End Search Result-->
 
@@ -28,12 +31,14 @@
 import {mapGetters} from 'vuex'
 import ChannelCard from './ChannelCard.vue'
 import VideoCard from './VideoCard.vue'
+import PlaylistCard from './PlaylistCard.vue'
 
 export default {
   name: 'search-result',
   components: {
     ChannelCard,
-    VideoCard
+    VideoCard,
+    PlaylistCard
   },
   computed: {
     ...mapGetters(['getSearchKey','getSearchLoading','getSearchResult','getSearchRequestStatus']),
