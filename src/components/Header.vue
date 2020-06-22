@@ -2,7 +2,7 @@
   <header class="header">
     <div class="mobile-header mobile d-flex bg-primary justify-content-between align-items-center p-2">
       <div class="d-flex align-items-center">
-        <i class="fab fa-youtube text-white size-36"></i>
+        <router-link :to="{ path: '/'}"><i class="fab fa-youtube text-white size-36"></i></router-link>
         <div class="form-container p-relative mx-2" v-if="isEnabledSearch || getSearchKey === ''">
           <input 
             class="form-control text-dark"
@@ -25,8 +25,8 @@
     <div class="desktop-header desktop bg-white p-fixed">
       <div class="container d-flex p-2">
         <div class="row justify-content-between align-items-center">
-          <div class="d-flex col-sm-2">
-            <img class="logo mw-100" src="../assets/images/youtube-logo.png" alt="Youtube Logo" />
+          <div class="d-flex col-sm-2" >
+            <router-link :to="{ path: '/'}"><img class="logo mw-100" src="../assets/images/youtube-logo.png" alt="Youtube Logo" /></router-link>
             <sup class="text-secondary size-10">EG</sup>
           </div><!-- End Logo--->
           <div class="d-flex col-sm-8 align-items-center px-0">

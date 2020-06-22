@@ -54,6 +54,15 @@ export default {
       duration: null
     }
   },
+  medthods: {
+    getChannelVidos() {
+      const playlistURL = `${this.$BASE_URL}playlistItems?part=snippet,contentDetails&key=${this.$API_KEY}&playlistId=${this.channelItem?.contentDetails?.relatedPlaylists?.uploads}`;
+      this.axios.get(playlistURL)
+      .then(response => {
+        this.videosList = response?.data?.items
+      })
+    }
+  },
   mounted() {
     const path = this.$route.path
     const channelId = path?.split('/')[2]
@@ -61,20 +70,13 @@ export default {
     const url = `${this.$BASE_URL}channels?part=snippet,statistics,contentDetails,brandingSettings&key=${this.$API_KEY}&id=${channelId}`;
     this.axios.get(url)
     .then(response => {
-      console.log(response.data);
       this.channelItem = response?.data?.items[0]
       this.subscriberCount = this.channelItem?.statistics?.subscriberCount
       this.bannerDesktop = this.channelItem?.brandingSettings?.image?.bannerImageUrl
       this.bannerMobile = this.channelItem?.brandingSettings?.image?.bannerMobileImageUrl
       
-      console.log('##',this.channelItem)
-       // get channel videos
-      const playlistURL = `${this.$BASE_URL}playlistItems?part=snippet,contentDetails&key=${this.$API_KEY}&playlistId=${this.channelItem?.contentDetails?.relatedPlaylists?.uploads}`;
-      this.axios.get(playlistURL)
-      .then(response => {
-        console.log(response.data)
-        this.videosList = response?.data?.items
-      })
+      // get channel videos
+      this.getChannelVidos()
     })
   }
 }

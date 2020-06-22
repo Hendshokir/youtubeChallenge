@@ -12,7 +12,7 @@
       </h5>
       <div class="video-statistics d-flex flex-row">
         <span class="statistics mb-2 size-8 text-secondary"> {{videoItem.snippet.channelTitle}}</span>
-        <span class="statistics mb-2 mx-2 size-8 text-secondary">{{formatViews(viewCount)}} views</span>
+        <span class="statistics mb-2 mx-2 size-8 text-secondary">{{viewCount }} views</span>
         <span class="desktop statistics mb-2 size-8 text-secondary">{{formatDate(videoItem.snippet.publishedAt)}}</span>
       </div>
       <span class="desktop size-10 text-secondary">{{videoItem.snippet.description | formatLargeText}}</span>
@@ -35,14 +35,6 @@ export default {
     }
   },
   methods: {
-    formatViews(num) {
-      if (num >= 1000000) {
-        return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
-      }
-      if (num >= 1000) {
-        return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-      }
-    },
     formatDuration(duration) {
       if(duration !== null && duration !== undefined) {
         duration = duration.substring(2)
@@ -75,7 +67,14 @@ export default {
     }
   },
   mounted() {
-    this.videoId =  (this.$route.path === '/') ? this.videoItem?.id?.videoId :  this.videoItem?.contentDetails?.videoId
+    if(this.$route.path.includes('channel')) {
+      this.videoId = this.videoItem?.contentDetails?.videoId
+    } else if(this.$route.path.includes('video')) {
+      this.videoId = this.videoItem?.id?.videoId
+    } else {
+      this.videoId =  this.videoItem?.id?.videoId
+    }
+    // this.videoId =  (this.$route.path === '/') ? this.videoItem?.id?.videoId :  this.videoItem?.contentDetails?.videoId
     const url = `${this.$BASE_URL}videos?part=statistics,contentDetails&key=${this.$API_KEY}&id=${this.videoId}`;
     this.axios.get(url)
     .then(response => {
