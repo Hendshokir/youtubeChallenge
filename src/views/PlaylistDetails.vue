@@ -1,7 +1,7 @@
 <template>
   <div class="playlist-details">
     <main-header />
-    <section class="playlist-videos container p-2 bg-white">
+    <section class="playlist-videos container mt-2 p-2 bg-white">
       <div v-for="item in playlistItems" :key="item.id">
         <video-card :videoItem="item" class="mb-2"/>
       </div>

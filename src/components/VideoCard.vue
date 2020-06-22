@@ -12,7 +12,7 @@
       </h5>
       <div class="video-statistics d-flex flex-row">
         <span class="statistics mb-2 size-8 text-secondary"> {{videoItem.snippet.channelTitle}}</span>
-        <span class="statistics mb-2 mx-2 size-8 text-secondary">{{viewCount }} views</span>
+        <span class="statistics mb-2 mx-2 size-8 text-secondary">{{viewCount | transformKandM }} views</span>
         <span class="desktop statistics mb-2 size-8 text-secondary">{{formatDate(videoItem.snippet.publishedAt)}}</span>
       </div>
       <span class="desktop size-10 text-secondary">{{videoItem.snippet.description | formatLargeText}}</span>
