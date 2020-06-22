@@ -10,7 +10,7 @@
     <div class="d-flex flex-column text-left mr-auto px-4">
       <h5 class="my-2">{{playlistItem.snippet.title}}</h5>
       <span class="mb-2 size-8 text-secondary"> {{playlistItem.snippet.channelTitle}}</span>
-      <span class="desktop size-12 text-secondary">{{playlistItem.snippet.description}}</span>
+      <span class="desktop size-12 text-secondary">{{playlistItem.snippet.description | formatLargeText}}</span>
     </div>
   </div>
 </template>

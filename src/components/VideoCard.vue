@@ -15,7 +15,7 @@
         <span class="statistics mb-2 mx-2 size-8 text-secondary">{{formatViews(viewCount)}} views</span>
         <span class="desktop statistics mb-2 size-8 text-secondary">{{formatDate(videoItem.snippet.publishedAt)}}</span>
       </div>
-      <span class="desktop size-10 text-secondary">{{videoItem.snippet.description}}</span>
+      <span class="desktop size-10 text-secondary">{{videoItem.snippet.description | formatLargeText}}</span>
     </div>
   </div>
 </template>

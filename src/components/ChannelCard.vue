@@ -11,7 +11,7 @@
       </h3>
       <span class="statistics mb-2 size-8 text-secondary mobile"> {{videoCount | formatNumber}} videos</span>
       <span class="statistics mb-2 size-8 text-secondary">{{subscriberCount | formatNumber}} subscribers</span>
-      <span class="desktop size-10 text-secondary">{{channelItem.snippet.description}}</span>
+      <span class="desktop size-10 text-secondary">{{channelItem.snippet.description | formatLargeText}}</span>
     </div>
   </div>
 </template>

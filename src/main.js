@@ -22,6 +22,12 @@ Vue.filter('formatNumber', function (num) {
   }
 })
 
+Vue.filter('formatLargeText', function (string) {
+  if (string !== undefined && string !== null) {
+    return `${string.substring(0,500)} ...`;
+  }
+})
+
 new Vue({
   router,
   store,
