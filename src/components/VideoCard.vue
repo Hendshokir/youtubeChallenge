@@ -1,11 +1,15 @@
 <template>
    <div class="video-card d-flex justify-content-between">
     <div class="img-container p-relative">
-      <img :src="videoItem.snippet.thumbnails.medium.url" />
+      <router-link :to="{ path: '/video/' + videoId}">
+        <img :src="videoItem.snippet.thumbnails.medium.url" alt="Video Logo" />
+      </router-link>
       <span class="duration p-absolute bg-dark text-white size-10">{{ formatDuration(duration) }}</span>
     </div>
     <div class="d-flex flex-column text-left mr-auto px-4">
-      <h5 class="my-2">{{videoItem.snippet.title}}</h5>
+      <h5 class="my-2">
+        <router-link :to="{ path: '/video/' + videoId}">{{videoItem.snippet.title}}</router-link>
+      </h5>
       <div class="video-statistics d-flex flex-row">
         <span class="statistics mb-2 size-8 text-secondary"> {{videoItem.snippet.channelTitle}}</span>
         <span class="statistics mb-2 mx-2 size-8 text-secondary">{{formatViews(viewCount)}} views</span>
@@ -26,7 +30,8 @@ export default {
   data() {
     return {
       viewCount: null,
-      duration: null
+      duration: null,
+      videoId: null
     }
   },
   methods: {
@@ -70,7 +75,8 @@ export default {
     }
   },
   mounted() {
-    const url = `${this.$BASE_URL}videos?part=statistics,contentDetails&key=${this.$API_KEY}&id=${this.videoItem.id.videoId}`;
+    this.videoId =  (this.$route.path === '/') ? this.videoItem?.id?.videoId :  this.videoItem?.contentDetails?.videoId
+    const url = `${this.$BASE_URL}videos?part=statistics,contentDetails&key=${this.$API_KEY}&id=${this.videoId}`;
     this.axios.get(url)
     .then(response => {
       this.viewCount = response?.data?.items[0]?.statistics?.viewCount

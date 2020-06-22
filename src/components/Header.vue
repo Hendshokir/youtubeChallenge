@@ -26,7 +26,7 @@
       <div class="container d-flex p-2">
         <div class="row justify-content-between align-items-center">
           <div class="d-flex col-sm-2">
-            <img class="logo" src="../assets/images/youtube-logo.png" alt="logo" />
+            <img class="logo mw-100" src="../assets/images/youtube-logo.png" alt="Youtube Logo" />
             <sup class="text-secondary size-10">EG</sup>
           </div><!-- End Logo--->
           <div class="d-flex col-sm-8 align-items-center px-0">
@@ -107,7 +107,8 @@ export default {
     ...mapGetters(['getSearchKey','getSearchLoading','getSearchResult','getSearchFilter'])
   },
   mounted() {
-    this.updateSearch('') // initially fire search with initially search key 'spongebob'
+    if (this.$route.path === '/')
+      this.updateSearch('') // initially fire search with initially search key 'spongebob'
   }
 }
 </script>
@@ -135,7 +136,6 @@ export default {
 
     .logo {
       width: 80px;
-      max-width: 100%;
     }
 
     .search-icon {

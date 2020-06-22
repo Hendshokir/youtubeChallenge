@@ -1,12 +1,16 @@
 <template>
   <div class="channel-card d-flex align-items-center">
     <div class="img-container">
-      <img :src="channelItem.snippet.thumbnails.medium.url" />
+      <router-link :to="{ path: '/channel/' + channelItem.id.channelId}">
+        <img :src="channelItem.snippet.thumbnails.medium.url" alt="Channel Logo" />
+      </router-link>
     </div>
-    <div class="channel-info d-flex flex-column text-left m-auto px-4">
-      <h3 class="my-2">{{channelItem.snippet.title}}</h3>
-      <span class="statistics mb-2 size-8 text-secondary mobile"> {{formatNumbers(videoCount)}} videos</span>
-      <span class="statistics mb-2 size-8 text-secondary">{{formatNumbers(subscriberCount)}} subscribers</span>
+    <div class="channel-info d-flex flex-column text-left px-4">
+      <h3 class="my-2">
+        <router-link :to="{ path: '/channel/' + channelItem.id.channelId}">{{channelItem.snippet.title}}</router-link>
+      </h3>
+      <span class="statistics mb-2 size-8 text-secondary mobile"> {{videoCount | formatNumber}} videos</span>
+      <span class="statistics mb-2 size-8 text-secondary">{{subscriberCount | formatNumber}} subscribers</span>
       <span class="desktop size-10 text-secondary">{{channelItem.snippet.description}}</span>
     </div>
   </div>
@@ -26,11 +30,6 @@ export default {
     }
   },
   methods: {
-    formatNumbers(num) {
-      if (num !== undefined && num !== null) {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      }
-    }
   },
   mounted() {
     const url = `${this.$BASE_URL}channels?part=statistics&key=${this.$API_KEY}&id=${this.channelItem.id.channelId}`;
@@ -70,12 +69,6 @@ export default {
     }
   }
 
-  h3 {
-    @media(max-width: 776px) {
-      font-size: 12px;
-      margin: 4px 0;
-    }
-  }
   span {
     &.statistics {
       @media(max-width: 776px) {

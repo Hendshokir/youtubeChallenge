@@ -14,8 +14,13 @@ Vue.use(VueAxios, axios)
 //global variables
 Vue.prototype.$ITEM_PER_PAGE = 10;
 Vue.prototype.$BASE_URL = 'https://www.googleapis.com/youtube/v3/';
-Vue.prototype.$API_KEY = 'AIzaSyBcqSFSaZ4pD77xWwKYJk_0eSn0QEjoZxk';
+Vue.prototype.$API_KEY = 'AIzaSyBYoMKu6mYSaQ2nJaGsKxunoNKyxt90qf8';
 
+Vue.filter('formatNumber', function (num) {
+  if (num !== undefined && num !== null) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+})
 
 new Vue({
   router,

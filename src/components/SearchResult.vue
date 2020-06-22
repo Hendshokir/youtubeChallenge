@@ -1,7 +1,7 @@
 <template>
   <section class="search-result">
     <div v-if="getSearchLoading" class="d-flex flex-column align-items-center py-5">
-      <img class="mb-3 loading" src="../assets/images/loading.gif">
+      <img class="mb-3 icon" src="../assets/images/loading.gif" alt="Loading">
       <span>Loading</span>
     </div><!-- End Search Loading-->
 
@@ -23,7 +23,7 @@
     </div><!-- End Search Result-->
 
     <div v-if="!getSearchRequestStatus" class="no-result d-flex flex-column align-items-center py-5">
-      <img class="mb-3 loading" src="../assets/images/not-found.svg">
+      <img class="mb-3 icon" src="../assets/images/not-found.svg">
       <span class="size-20"> No results found </span>
     </div><!--End No Result-->
   </section>
@@ -59,7 +59,7 @@ export default {
     background-color: $white;
   }
 
-  .loading {
+  .icon {
     width: 30px;
   }
 }

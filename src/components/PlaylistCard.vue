@@ -1,7 +1,7 @@
 <template>
   <div class="playlist-card d-flex justify-content-between">
     <div class="img-container p-relative">
-      <img :src="playlistItem.snippet.thumbnails.medium.url" />
+      <img :src="playlistItem.snippet.thumbnails.medium.url" alt="Playlist Logo" />
       <span class="videos-count d-flex flex-column justify-content-center align-items-center p-absolute bg-darkness text-white size-12">
         {{itemCount }}
         <i class="fas fa-indent mt-1"></i>

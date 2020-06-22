@@ -15,7 +15,7 @@
 
     <div class="desktop container my-2">
       <div class="handle-filter d-flex justify-content-between mr-5">
-        <span class="size-12">About {{formatNumbers(getSearchResult.pageInfo.totalResults)}} results</span>
+        <span class="size-12">About {{getSearchResult.pageInfo.totalResults | formatNumber}} results</span>
         <span :class="{'font-weight-bold' : toggleFilter}" class="size-14 cursor-pointer" @click="toggoleFilterSection">
           <i class="fas fa-filter size-10"></i> Filter
         </span>
@@ -23,7 +23,7 @@
 
       <div v-if="toggleFilter" class="row text-left mx-0 mt-3">
         <div class="col-md-3 px-0">
-          <span class="filter-label d-block pb-3 size-10">upload date</span>
+          <span class="filter-label d-block text-uppercase pb-3 size-10">upload date</span>
           <ul class="p-0 mb-0">
             <li v-for="item in dateLabels" :key=item.id>
               <span @click="updateFilter(item)" :class="{'font-weight-bold': item.selected}">{{item.name}}</span> 
@@ -132,11 +132,6 @@ export default {
         document.getElementById('date').value = 'any_time'
       }
     },
-    formatNumbers(num) {
-      if (num !== undefined && num !== null) {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      }
-    },
     toggoleFilterSection() {
       this.toggleFilter = !this.toggleFilter
     }
@@ -173,7 +168,6 @@ export default {
   }
 
   .filter-label {
-    text-transform: uppercase;
     border-bottom:  1px solid $light;
   }
 

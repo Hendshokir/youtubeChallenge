@@ -24,6 +24,10 @@
     background-color: $primary;
 }
 
+.bg-secondary {
+    background-color: $grey;
+}
+
 .bg-white {
     background-color: $white;
 }
@@ -38,4 +42,8 @@
 
 .bg-light {
     background-color: $light;   
+}
+
+.bg-inherit {
+    background-color: inherit;   
 }

@@ -1,6 +1,8 @@
 <template>
-  <div class="about">
+  <div class="video-details">
     <main-header />
+
+    hi from details video
   </div>
 </template>
 
@@ -10,7 +12,7 @@
 import mainHeader from '@/components/Header.vue'
 
 export default {
-  name: 'About',
+  name: 'VideoDetails',
   components: {
     mainHeader
   }
