@@ -3,16 +3,13 @@
     <div class="mobile d-flex mx-2">
       <select class="form-control mr-2" id="type" @change="updateFilter($event)">
         <option value="all">All</option>
-        <option value="video">Video</option>
-        <option value="channel">Channel</option>
-        <option value="playlist">Playlist</option>
+        <option v-for="item in typeLabels" :key="item.id" :value="item.id"> {{ item.name }}</option>
+
       </select>
 
       <select class="form-control" id="date" @change="updateFilter($event)">
         <option value="any_time">Any time</option>
-        <option value="today">Today</option>
-        <option value="this_week">This week</option>
-        <option value="this_month">This month</option>
+        <option v-for="item in dateLabels" :key="item.id" :value="item.id"> {{ item.name }}</option>
       </select>
     </div><!-- End Filter Mobile-->
 
