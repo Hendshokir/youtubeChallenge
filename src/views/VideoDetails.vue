@@ -41,7 +41,7 @@
           </div>
 
           <div class="channel-info my-3 py-3 d-flex align-items-center">
-            <img :src="channelItem.snippet.thumbnails.medium.url" alt="Channel Logo" />
+            <img :src="channelLogo" alt="Channel Logo" />
             <div class="d-flex flex-column ml-2">
               <span class="size-12 mb-1"> {{videoItem.snippet.channelTitle}}</span>
               <span class="size-8 text-secondary">Published on {{publishedAt}}</span>
@@ -78,25 +78,12 @@ export default {
       videoId: null,
       relatedVideos: [],
       channelItem: {},
-      publishedAt: ''
+      publishedAt: '',
+      channelLogo: ''
     }
   },
-  methods: {
-    getChannelInfo() {
-      const channelURL = `${this.$BASE_URL}channels?part=snippet,brandingSettings&key=${this.$API_KEY}&id=${this.videoItem.snippet.channelId}`;
-      this.axios.get(channelURL)
-      .then(response => {
-        this.channelItem = response?.data?.items[0]
-        this.publishedAt = moment(this.channelItem.publishedAt).format('DD MMM YYYY')
-      })
-    },
-    getRelatedVideos() {
-      const videosURL = `${this.$BASE_URL}search?part=snippet&key=${this.$API_KEY}&relatedToVideoId=${this.videoId}&type=video`;
-      this.axios.get(videosURL)
-      .then(response => {
-      this.relatedVideos = response?.data?.items
-      })
-    },
+  created() {
+    this.channelLogo = this.channelItem?.snippet?.thumbnails?.medium?.url
   },
   mounted() {
     const path = this.$route.path
@@ -107,8 +94,20 @@ export default {
     .then(response => {
       this.videoItem = response?.data?.items[0]
 
-      this.getChannelInfo()
-      this.getRelatedVideos()
+      // get channel info
+      const channelURL = `${this.$BASE_URL}channels?part=snippet,brandingSettings&key=${this.$API_KEY}&id=${this.videoItem.snippet.channelId}`;
+      this.axios.get(channelURL)
+      .then(response => {
+        this.channelItem = response?.data?.items[0]
+        this.publishedAt = moment(this.channelItem.publishedAt).format('DD MMM YYYY')
+      })
+
+      // get related videos
+      const videosURL = `${this.$BASE_URL}search?part=snippet&key=${this.$API_KEY}&relatedToVideoId=${this.videoId}&type=video`;
+      this.axios.get(videosURL)
+      .then(response => {
+      this.relatedVideos = response?.data?.items
+      })
     })
   }
 }

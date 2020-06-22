@@ -2,7 +2,7 @@
   <div class="playlist-card d-flex justify-content-between">
     <div class="img-container p-relative">
       <router-link :to="{ path: '/playlist/' + playlistItem.id.playlistId}">
-        <img :src="playlistItem.snippet.thumbnails.medium.url" alt="Playlist Logo" />
+        <img :src="playlistLogo" alt="Playlist Logo" />
       
         <span class="videos-count d-flex flex-column justify-content-center align-items-center p-absolute bg-darkness text-white size-12">
           {{itemCount }}
@@ -29,11 +29,13 @@ export default {
   },
   data() {
     return {
-      itemCount: null
+      itemCount: null,
+      playlistLogo: ''
+
     }
   },
-  methods: {
-
+  created() {
+    this.playlistLogo = this.playlistItem?.snippet?.thumbnails?.medium?.url
   },
   mounted() {
     const url = `${this.$BASE_URL}playlists?part=contentDetails&key=${this.$API_KEY}&id=${this.playlistItem.id.playlistId}`;

@@ -9,7 +9,7 @@
           <img class="mobile w-100 mx-100" :src="bannerMobile" alt="Channel Banner" />
         </div> <!-- End Banner-->
           
-        <img :src="channelItem.snippet.thumbnails.medium.url" class="logo m-auto p-absolute" alt="Channel Logo" />
+        <img :src="channelLogo" class="logo m-auto p-absolute" alt="Channel Logo" />
         <div class="bg-light channel-info d-flex flex-column justify-content-center">
           <h3 class="my-0 py-2">
             {{channelItem.snippet.title}}
@@ -51,17 +51,12 @@ export default {
       bannerDesktop: '',
       bannerMobile: '',
       videosList: [],
-      duration: null
+      duration: null,
+      channelLogo: ''
     }
   },
-  medthods: {
-    getChannelVidos() {
-      const playlistURL = `${this.$BASE_URL}playlistItems?part=snippet,contentDetails&key=${this.$API_KEY}&playlistId=${this.channelItem?.contentDetails?.relatedPlaylists?.uploads}`;
-      this.axios.get(playlistURL)
-      .then(response => {
-        this.videosList = response?.data?.items
-      })
-    }
+  created() {
+    this.channelLogo = this.channelItem?.snippet?.thumbnails?.medium.url
   },
   mounted() {
     const path = this.$route.path
@@ -76,7 +71,11 @@ export default {
       this.bannerMobile = this.channelItem?.brandingSettings?.image?.bannerMobileImageUrl
       
       // get channel videos
-      this.getChannelVidos()
+      const playlistURL = `${this.$BASE_URL}playlistItems?part=snippet,contentDetails&key=${this.$API_KEY}&playlistId=${this.channelItem?.contentDetails?.relatedPlaylists?.uploads}`;
+      this.axios.get(playlistURL)
+      .then(response => {
+        this.videosList = response?.data?.items
+      })
     })
   }
 }

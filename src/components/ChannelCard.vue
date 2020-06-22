@@ -2,7 +2,7 @@
   <div class="channel-card d-flex align-items-center">
     <div class="img-container">
       <router-link :to="{ path: '/channel/' + channelItem.id.channelId}">
-        <img :src="channelItem.snippet.thumbnails.medium.url" alt="Channel Logo" />
+        <img :src="channelLogo" alt="Channel Logo" />
       </router-link>
     </div>
     <div class="channel-info d-flex flex-column text-left px-4">
@@ -26,10 +26,12 @@ export default {
   data() {
     return {
       videoCount: null,
-      subscriberCount: null
+      subscriberCount: null,
+      channelLogo: ''
     }
   },
-  methods: {
+  created() {
+    this.channelLogo = this.channelItem?.snippet?.thumbnails?.medium.url;
   },
   mounted() {
     const url = `${this.$BASE_URL}channels?part=statistics&key=${this.$API_KEY}&id=${this.channelItem.id.channelId}`;

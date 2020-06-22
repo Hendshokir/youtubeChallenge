@@ -2,7 +2,7 @@
    <div class="video-card d-flex justify-content-between">
     <div class="img-container p-relative">
       <router-link :to="{ path: '/video/' + videoId}">
-        <img :src="videoItem.snippet.thumbnails.medium.url" alt="Video Logo" />
+        <img :src="videoLogo" alt="Video Logo" />
       </router-link>
       <span class="duration p-absolute bg-dark text-white size-10">{{ formatDuration(duration) }}</span>
     </div>
@@ -31,7 +31,8 @@ export default {
     return {
       viewCount: null,
       duration: null,
-      videoId: null
+      videoId: null,
+      videoLogo: ''
     }
   },
   methods: {
@@ -65,6 +66,9 @@ export default {
       }
       return result
     }
+  },
+  created() {
+    this.videoLogo = this.videoItem?.snippet?.thumbnails?.medium?.url
   },
   mounted() {
     if(this.$route.path.includes('channel') || this.$route.path.includes('playlist')  ) {
