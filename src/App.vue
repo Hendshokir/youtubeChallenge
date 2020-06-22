@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view/>
+    <!-- $route.fullPath : Reacting to Params Changes -->
+
+    <router-view :key="$route.fullPath"/>
   </div>
 </template>
 
