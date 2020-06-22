@@ -19,6 +19,11 @@ Vue.use(VueRouter)
     path: '/video/:id',
     name: 'VideoDetails',
     component: () => import('../views/VideoDetails.vue')
+  },
+  {
+    path: '/playlist/:id',
+    name: 'PlaylistDetails',
+    component: () => import('../views/PlaylistDetails.vue')
   }
 ]
 

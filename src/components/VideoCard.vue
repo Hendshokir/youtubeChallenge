@@ -67,7 +67,7 @@ export default {
     }
   },
   mounted() {
-    if(this.$route.path.includes('channel')) {
+    if(this.$route.path.includes('channel') || this.$route.path.includes('playlist')  ) {
       this.videoId = this.videoItem?.contentDetails?.videoId
     } else if(this.$route.path.includes('video')) {
       this.videoId = this.videoItem?.id?.videoId

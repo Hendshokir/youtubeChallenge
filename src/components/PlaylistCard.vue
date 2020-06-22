@@ -1,14 +1,19 @@
 <template>
   <div class="playlist-card d-flex justify-content-between">
     <div class="img-container p-relative">
-      <img :src="playlistItem.snippet.thumbnails.medium.url" alt="Playlist Logo" />
-      <span class="videos-count d-flex flex-column justify-content-center align-items-center p-absolute bg-darkness text-white size-12">
-        {{itemCount }}
-        <i class="fas fa-indent mt-1"></i>
-      </span>
+      <router-link :to="{ path: '/playlist/' + playlistItem.id.playlistId}">
+        <img :src="playlistItem.snippet.thumbnails.medium.url" alt="Playlist Logo" />
+      
+        <span class="videos-count d-flex flex-column justify-content-center align-items-center p-absolute bg-darkness text-white size-12">
+          {{itemCount }}
+          <i class="fas fa-indent mt-1"></i>
+        </span>
+      </router-link>
     </div>
     <div class="d-flex flex-column text-left mr-auto px-4">
-      <h5 class="my-2">{{playlistItem.snippet.title}}</h5>
+      <h5 class="my-2">
+        <router-link :to="{ path: '/playlist/' + playlistItem.id.playlistId}">{{playlistItem.snippet.title}}</router-link>
+      </h5>
       <span class="mb-2 size-8 text-secondary"> {{playlistItem.snippet.channelTitle}}</span>
       <span class="desktop size-12 text-secondary">{{playlistItem.snippet.description | formatLargeText}}</span>
     </div>
