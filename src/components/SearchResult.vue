@@ -8,7 +8,7 @@
     <filter-section v-if="!getSearchLoading && getSearchKey !== ''" />
     <!--End Filte -->
     <div v-if="!getSearchLoading && getSearchResult !== ''" class="container p-1">
-      <div v-for="item in getSearchResult" :key="item.etag">
+      <div v-for="item in getSearchResult.items" :key="item.etag">
         <div v-if="item.id.kind === 'youtube#channel'">
           <channel-card :channelItem="item" class="my-3"/>
         </div>

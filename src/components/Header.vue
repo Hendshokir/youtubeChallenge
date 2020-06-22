@@ -3,7 +3,7 @@
     <div class="mobile-header mobile d-flex bg-primary justify-content-between align-items-center p-2">
       <div class="d-flex align-items-center">
         <i class="fab fa-youtube text-white size-36"></i>
-        <div class="form-container p-relative mx-2" v-if="isEnabledSearch">
+        <div class="form-container p-relative mx-2" v-if="isEnabledSearch || getSearchKey === ''">
           <input 
             class="form-control text-dark"
             type="text"
@@ -77,28 +77,29 @@ export default {
       this.$store.commit('updateSearchLoading',true)
 
       let url = '';
+      const commonURl = `part=snippet&q=${searchKey}&order=${this.getSearchFilter.order}&key=${this.$API_KEY}`
       if (this.getSearchFilter.type !== undefined) {
-        url = `${this.$BASE_URL}search?part=snippet&q=${searchKey}&key=${this.$API_KEY}&type=${this.getSearchFilter.type}&maxResults=${this.$ITEM_PER_PAGE}`;
+        url = `${this.$BASE_URL}search?${commonURl}&type=${this.getSearchFilter.type}&maxResults=${this.$ITEM_PER_PAGE}`;
       } else if (this.getSearchFilter.publishedAfter !== undefined) {
-        url = `${this.$BASE_URL}search?part=snippet&q=${searchKey}&key=${this.$API_KEY}&publishedAfter=${this.getSearchFilter.publishedAfter}&maxResults=${this.$ITEM_PER_PAGE}`;
+        url = `${this.$BASE_URL}search?${commonURl}&publishedAfter=${this.getSearchFilter.publishedAfter}&maxResults=${this.$ITEM_PER_PAGE}`;
       } else {
-        url = `${this.$BASE_URL}search?part=snippet&q=${searchKey}&key=${this.$API_KEY}&maxResults=${this.$ITEM_PER_PAGE}`
+        url = `${this.$BASE_URL}search?${commonURl}&maxResults=${this.$ITEM_PER_PAGE}`
       }
       this.axios.get(url)
       .then(response => {
         this.$store.commit('updateSearchLoading',false)
-        this.$store.commit('updateSearchResult',response.data.items)
+        this.$store.commit('updateSearchResult',response.data)
         this.getSearchResult === [] ? 
         this.$store.commit('updateSearchRequstStats',false) :
         this.$store.commit('updateSearchRequstStats',true) 
-        this.$store.commit('updateSearchFilter',{}) // reset filter 
+        this.$store.commit('updateSearchFilter',{order: 'relevance'}) // reset filter 
         this.isEnabledSearch = false
       })
       .catch(() => {
         this.$store.commit('updateSearchLoading',false)
         this.$store.commit('updateSearchResult','')
         this.$store.commit('updateSearchRequstStats',false)
-        this.$store.commit('updateSearchFilter',{}) // reset filter 
+        this.$store.commit('updateSearchFilter',{order: 'relevance'}) // reset filter 
       })
     }
   },

@@ -12,7 +12,9 @@ export default new Vuex.Store({
     searchLoading: false,
     searchResult: '',
     searchRequestStatus: true, // true: indicate for success status, otherwise false
-    searchFilter: {}
+    searchFilter: {
+      order: 'relevance'
+    }
   },
   getters: getters,
   mutations: mutations,

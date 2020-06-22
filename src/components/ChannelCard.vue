@@ -54,7 +54,7 @@ export default {
 
   .img-container {
     @media(min-width: 776px) {
-      width: 370px;
+      min-width: 250px;
     }
     img {
       border-radius: 50%;
