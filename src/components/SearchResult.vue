@@ -59,7 +59,10 @@ export default {
           pageToken: this.getNextPageToken,
         },
       }).then( response  => {
+        console.log(response.data.items)	
         if (response.data.items.length) {
+          console.log(this.getSearchResult.items)	
+          console.log(this.getSearchResult.items.push(...response.data.items))
           this.$store.commit('updateNextPageToken',response.data.nextPageToken)
           $state.loaded();
         } else {

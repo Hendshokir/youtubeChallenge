@@ -15,7 +15,7 @@ Vue.use(VueAxios, axios)
 //global variables
 Vue.prototype.$ITEM_PER_PAGE = 10;
 Vue.prototype.$BASE_URL = 'https://www.googleapis.com/youtube/v3/';
-Vue.prototype.$API_KEY = 'AIzaSyDDRees4sNIzQwGUytndUG5IBgNnxIutXA';
+Vue.prototype.$API_KEY = 'AIzaSyBYoMKu6mYSaQ2nJaGsKxunoNKyxt90qf8';
 
 new Vue({
   router,
