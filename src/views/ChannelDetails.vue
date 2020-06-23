@@ -26,9 +26,15 @@
 
       <section class="channel-videos p-2 bg-white">
         <div v-for="item in videosList" :key="item.id">
-          <video-card :videoItem="item"/>
+          <video-card :videoItem="item" class="py-1"/>
         </div>
       </section><!--End Channel Videos-->
+
+      <section class="load-more">
+        <div class="mobile p-2 bg-white">
+          <button class="text-secondary bg-inherit border-0 cursor-pointer" @click="loadMore">Show more items </button>
+        </div> <!--End Mobile load more-->
+      </section>
     </div><!-- End Container-->
   </div>
 </template>
@@ -52,8 +58,22 @@ export default {
       bannerMobile: '',
       videosList: [],
       duration: null,
-      channelLogo: ''
+      channelLogo: '',
+      playlistURL: '',
+      pageToken: ''
     }
+  },
+  methods: {
+    loadMore() {
+      this.axios.get(this.playlistURL, {
+        params: {
+          pageToken: this.pageToken,
+        },
+      }).then(response => {
+        this.videosList.push(...response?.data?.items)
+        this.pageToken = response.data.nextPageToken
+      })
+    },
   },
   created() {
     this.channelLogo = this.channelItem?.snippet?.thumbnails?.medium.url
@@ -71,9 +91,10 @@ export default {
       this.bannerMobile = this.channelItem?.brandingSettings?.image?.bannerMobileImageUrl
       
       // get channel videos
-      const playlistURL = `${this.$BASE_URL}playlistItems?part=snippet,contentDetails&key=${this.$API_KEY}&playlistId=${this.channelItem?.contentDetails?.relatedPlaylists?.uploads}`;
-      this.axios.get(playlistURL)
+      this.playlistURL = `${this.$BASE_URL}playlistItems?part=snippet,contentDetails&key=${this.$API_KEY}&playlistId=${this.channelItem?.contentDetails?.relatedPlaylists?.uploads}`;
+      this.axios.get(this.playlistURL)
       .then(response => {
+        this.pageToken = response.data.nextPageToken
         this.videosList = response?.data?.items
       })
     })
@@ -112,6 +133,17 @@ export default {
     min-height: 80px;
     @media(min-width: 776px) {
       min-height: 120px;
+    }
+  }
+
+  .load-more {
+    border-top: 1px solid $light;
+    border-bottom: 1px solid $light;
+
+    button {
+      &:focus {
+        outline: none;
+      }
     }
   }
 }

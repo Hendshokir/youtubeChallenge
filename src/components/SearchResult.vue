@@ -22,12 +22,7 @@
       </div>
 
       <section class="load-more">
-        <div pa class="mobile p-2">
-          Show more items 
-        </div> <!--End Mobile load more-->
-        <div class="desktop">
-          <infinite-loading @infinite="infiniteHandler"></infinite-loading>
-        </div> <!--End Desktop load more-->
+        <infinite-loading @infinite="infiniteHandler"></infinite-loading>
       </section> <!-- Load more-->
 
     </div><!-- End Search Result-->
@@ -64,10 +59,7 @@ export default {
           pageToken: this.getNextPageToken,
         },
       }).then( response  => {
-        console.log(response.data.items)
         if (response.data.items.length) {
-          console.log(this.getSearchResult.items)
-          console.log(this.getSearchResult.items.push(...response.data.items))
           this.$store.commit('updateNextPageToken',response.data.nextPageToken)
           $state.loaded();
         } else {
@@ -92,13 +84,6 @@ export default {
 
   .icon {
     width: 30px;
-  }
-
-  .load-more {
-     @media(max-width: 776px) {
-       border-top: 1px solid $light;
-       border-bottom: 1px solid $light;
-    }
   }
 }
 </style>
