@@ -25,8 +25,6 @@ export default {
       playlistItems: []
     }
   },
-  medthods: {
-  },
   mounted() {
     const path = this.$route.path
     const playlistId = path?.split('/')[2]

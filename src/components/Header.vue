@@ -106,11 +106,6 @@ export default {
         this.$store.commit('updateSearchFilter',{order: 'relevance'}) // reset filter 
       })
     },
-    handleScroll: function () {
-      // detect end of the page
-      // if ((window.innerHeight + (window.scrollY)) >= (document.body.offsetHeight -1)) {
-      // }
-    }
   },
   computed: {
     ...mapGetters(['getSearchKey','getSearchLoading','getSearchResult','getSearchFilter','getNextPageToken','getRequestURL'])
@@ -120,12 +115,6 @@ export default {
       this.updateSearch('')
 
     window.addEventListener('scroll', this.handleScroll);
-  },
-  created: function () {
-    // window.addEventListener('scroll', this.handleScroll);
-  },
-  destroyed: function () {
-    // window.removeEventListener('scroll', this.handleScroll);
   }
 }
 </script>
