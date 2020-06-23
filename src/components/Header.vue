@@ -15,7 +15,6 @@
           </span>
         </div>
         <span @click="toggleSearch" v-else class="mx-2 text-white">{{getSearchKey}}</span>
-        <!-- TODO: youtube text in video details page-->
       </div> <!-- End Logo, Search Form/text-->
       <span @click="updateSearch(getSearchKey)">
         <i class="fas fa-search text-white cursor-pointer"></i>

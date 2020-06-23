@@ -1,7 +1,7 @@
 # Youtube Challenge
 
 ### Task Brainstorming
-![Task Brainstorming](src/assets/images/brainstorming.png)
+![Task Brainstorming](brainstorming.png)
 
 ## Features
 
@@ -25,7 +25,8 @@
 - **moment** for date formating.
 - **scss** for css preprocessing.
 - **vue-infinite-loading** for infinite loading.
-- **Jest** for UI testing and snapshots (unfortunta).
+- **Jest** for UI testing and snapshots 
+    (unfortunately there is no time to write test cases to meet deadline :penguin:).
 
 ## Installation
 
