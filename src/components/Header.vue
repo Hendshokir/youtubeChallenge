@@ -52,11 +52,13 @@
 <script>
 import {mapGetters} from 'vuex'
 export default {
+  
   name: 'main-header',
   data() {
     return {
       isEnabledSearch: true,
-      searchKey: this.$store.state.searchKey
+      searchKey: this.$store.state.searchKey,
+      url: ''
     }
   },
   methods: {
@@ -76,16 +78,18 @@ export default {
         this.$router.push('/')
       this.$store.commit('updateSearchLoading',true)
 
-      let url = '';
-      const commonURl = `part=snippet&q=${searchKey}&order=${this.getSearchFilter.order}&key=${this.$API_KEY}`
+      const commonURl = `part=snippet&q=${searchKey}&order=${this.getSearchFilter.order}&key=${this.$API_KEY}&pageToken=${this.getNextPageToken}`
       if (this.getSearchFilter.type !== undefined) {
-        url = `${this.$BASE_URL}search?${commonURl}&type=${this.getSearchFilter.type}&maxResults=${this.$ITEM_PER_PAGE}`;
+        this.url = `${this.$BASE_URL}search?${commonURl}&type=${this.getSearchFilter.type}&maxResults=${this.$ITEM_PER_PAGE}`;
       } else if (this.getSearchFilter.publishedAfter !== undefined) {
-        url = `${this.$BASE_URL}search?${commonURl}&publishedAfter=${this.getSearchFilter.publishedAfter}&maxResults=${this.$ITEM_PER_PAGE}`;
+        this.url = `${this.$BASE_URL}search?${commonURl}&publishedAfter=${this.getSearchFilter.publishedAfter}&maxResults=${this.$ITEM_PER_PAGE}`;
       } else {
-        url = `${this.$BASE_URL}search?${commonURl}&maxResults=${this.$ITEM_PER_PAGE}`
+        this.url = `${this.$BASE_URL}search?${commonURl}&maxResults=${this.$ITEM_PER_PAGE}`
       }
-      this.axios.get(url)
+      
+      this.$store.commit('updateRequestURL',this.url)
+
+      this.axios.get(this.url)
       .then(response => {
         this.$store.commit('updateSearchLoading',false)
         this.$store.commit('updateSearchResult',response.data)
@@ -93,6 +97,7 @@ export default {
         this.$store.commit('updateSearchRequstStats',false) :
         this.$store.commit('updateSearchRequstStats',true) 
         this.$store.commit('updateSearchFilter',{order: 'relevance'}) // reset filter 
+        this.$store.commit('updateNextPageToken',response.data.nextPageToken)
         this.isEnabledSearch = false
       })
       .catch(() => {
@@ -101,14 +106,27 @@ export default {
         this.$store.commit('updateSearchRequstStats',false)
         this.$store.commit('updateSearchFilter',{order: 'relevance'}) // reset filter 
       })
+    },
+    handleScroll: function () {
+      // detect end of the page
+      // if ((window.innerHeight + (window.scrollY)) >= (document.body.offsetHeight -1)) {
+      // }
     }
   },
   computed: {
-    ...mapGetters(['getSearchKey','getSearchLoading','getSearchResult','getSearchFilter'])
+    ...mapGetters(['getSearchKey','getSearchLoading','getSearchResult','getSearchFilter','getNextPageToken','getRequestURL'])
   },
   mounted() {
     if (this.$route.path === '/')
-      this.updateSearch('') // initially fire search with initially search key 'spongebob'
+      this.updateSearch('')
+
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  created: function () {
+    // window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed: function () {
+    // window.removeEventListener('scroll', this.handleScroll);
   }
 }
 </script>

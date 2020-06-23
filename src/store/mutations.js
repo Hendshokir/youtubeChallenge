@@ -13,6 +13,12 @@ export default {
   },
   updateSearchFilter(state, newSearchFilter) {
     state.searchFilter = newSearchFilter
+  },
+  updateNextPageToken(state, newNextPageToken) {
+    state.nextPageToken = newNextPageToken
+  },
+  updateRequestURL(state, newURL) {
+    state.requestURL = newURL
   }
 };
   

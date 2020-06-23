@@ -14,7 +14,9 @@ export default new Vuex.Store({
     searchRequestStatus: true, // true: indicate for success status, otherwise false
     searchFilter: {
       order: 'relevance'
-    }
+    },
+    nextPageToken: '',
+    requestURL: ''
   },
   getters: getters,
   mutations: mutations,

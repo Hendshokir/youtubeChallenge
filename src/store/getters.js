@@ -13,5 +13,11 @@ export default {
   },
   getSearchFilter(state) {
     return state.searchFilter
+  },
+  getNextPageToken(state) {
+    return state.nextPageToken
+  },
+  getRequestURL(state) {
+    return state.requestURL
   }
 };
