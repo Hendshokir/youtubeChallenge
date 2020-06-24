@@ -137,14 +137,14 @@ export default {
     }
   },
   mounted() {
-    if(this.getSearchFilter.type !== undefined ) {
+    if(this.getSearchFilter.type !== undefined && this.getSearchFilter.type !== null) {
       document.getElementById('type').value = this.getSearchFilter.type;
     }
     else {
       document.getElementById('type').value = 'all'
     }
 
-    if(this.getSearchFilter.publishedAfter !== undefined ) {
+    if(this.getSearchFilter.publishedAfter !== undefined  && this.getSearchFilter.publishedAfter !== null) {
       document.getElementById('date').value = this.getSearchFilter.date;
     }
     else {
