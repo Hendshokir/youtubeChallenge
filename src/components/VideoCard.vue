@@ -40,6 +40,10 @@ export default {
       if(duration !== null && duration !== undefined) {
         duration = duration.substring(2)
         duration = duration.split('H').join(':').split('M').join(':').split('S').join('')
+        // justify no minutes
+        if(duration.indexOf(':') === -1) duration = `00:${duration}`
+        // justify no seconds
+        if(duration.endsWith(':'))  duration = `${duration}00`
         return duration
       }
     },
@@ -111,6 +115,7 @@ export default {
     bottom: 5px;
     z-index: 9;
     padding: 2px;
+    border-radius: 2px;;
   }
 
   h5 {

@@ -9,7 +9,7 @@
             type="text"
             @change="updateSearchKey"
             v-model="searchKey" />
-          <span @click="clearSearch" v-if="searchKey !== ''">
+          <span @click="clearSearch" class="clear-search" v-if="searchKey !== ''">
             <i
             class="fas fa-times clear-search cursor-pointer text-secondary p-absolute px-2 size-10"></i>
           </span>
@@ -61,7 +61,7 @@ export default {
     }
   },
   methods: {
-    clearSearch: function() {
+    clearSearch() {
       this.searchKey = ''
       this.$store.commit('updateSearchKey',this.searchKey)
       this.$store.commit('updateSearchResult','')
@@ -111,10 +111,8 @@ export default {
     ...mapGetters(['getSearchKey','getSearchLoading','getSearchResult','getSearchFilter','getNextPageToken','getRequestURL'])
   },
   mounted() {
-    if (this.$route.path === '/')
+    if (this.$route?.path === '/')
       this.updateSearch('')
-
-    window.addEventListener('scroll', this.handleScroll);
   }
 }
 </script>
