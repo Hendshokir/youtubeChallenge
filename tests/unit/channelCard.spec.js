@@ -9,31 +9,17 @@ Vue.filter('formatLargeText', () => 'formatLargeText')
 Vue.use(VueAxios, axios)
 
 const channelItem = {
-  "kind":"youtube#searchResult",
-  "etag":"wJWApa3kJsYa4CWqGCGcVbb5AhE",
   "id":{
-     "kind":"youtube#channel",
-     "channelId":"UCba9w4PBBv1ntFMC88SuGkA"
+   "channelId":"UCba9w4PBBv1ntFMC88SuGkA"
   },
   "snippet":{
-     "publishedAt":"2017-07-09T15:30:17Z",
      "channelId":"UCba9w4PBBv1ntFMC88SuGkA",
      "title":"EZRY PRO",
-     "description":"",
      "thumbnails":{
-        "default":{
-           "url":"https://yt3.ggpht.com/-Yy-i9CHlQJw/AAAAAAAAAAI/AAAAAAAAAAA/9Ee-fxEooUE/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
-        },
-        "medium":{
-           "url":"https://yt3.ggpht.com/-Yy-i9CHlQJw/AAAAAAAAAAI/AAAAAAAAAAA/9Ee-fxEooUE/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
-        },
-        "high":{
-           "url":"https://yt3.ggpht.com/-Yy-i9CHlQJw/AAAAAAAAAAI/AAAAAAAAAAA/9Ee-fxEooUE/s800-c-k-no-mo-rj-c0xffffff/photo.jpg"
-        }
-     },
-     "channelTitle":"EZRY PRO",
-     "liveBroadcastContent":"none",
-     "publishTime":"2017-07-09T15:30:17Z"
+      "medium":{
+        "url":"https://yt3.ggpht.com/-Yy-i9CHlQJw/AAAAAAAAAAI/AAAAAAAAAAA/9Ee-fxEooUE/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+      }
+     }
   }
 }
 describe('Channel Card is an instance', () => {
