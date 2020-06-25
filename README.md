@@ -25,8 +25,7 @@
 - **moment** for date formating.
 - **scss** for css preprocessing.
 - **vue-infinite-loading** for infinite loading.
-- **Jest** for UI testing and snapshots 
-    (unfortunately there is no time to write test cases to meet deadline :penguin:).
+- **Jest** for UI testing.
 
 ## Installation
 

@@ -75,9 +75,9 @@ export default {
     this.videoLogo = this.videoItem?.snippet?.thumbnails?.medium?.url
   },
   mounted() {
-    if(this.$route.path.includes('channel') || this.$route.path.includes('playlist')  ) {
+    if(this.$route?.path?.includes('channel') || this.$route?.path?.includes('playlist')  ) {
       this.videoId = this.videoItem?.contentDetails?.videoId
-    } else if(this.$route.path.includes('video')) {
+    } else if(this.$route?.path?.includes('video')) {
       this.videoId = this.videoItem?.id?.videoId
     } else {
       this.videoId =  this.videoItem?.id?.videoId
