@@ -142,7 +142,6 @@ export default {
     }
     .clear-search {
       right: 0;
-      border: 0;
     }
   }
 
