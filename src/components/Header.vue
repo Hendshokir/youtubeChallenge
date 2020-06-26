@@ -5,7 +5,7 @@
         <router-link :to="{ path: '/'}"><i class="fab fa-youtube text-white size-36"></i></router-link>
         <div class="form-container p-relative text-left mx-2" v-if="isEnabledSearch || getSearchKey === ''">
           <input 
-            class="form-control text-dark w-90"
+            class="form-control text-dark w-100"
             type="text"
             @change="updateSearchKey"
             v-model="searchKey" />
